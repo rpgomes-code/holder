@@ -14,7 +14,7 @@ import {
   YAxis,
   Tooltip,
 } from "recharts";
-import { useYearResults } from "@/context/stonks/tools/calculators/interest/year-results";
+import { useGoalResults } from "@/context/stonks/tools/calculators/goal/goal-results";
 import { getCompoundInterestChart } from "@/lib/stonks/tools/calculators/interest";
 import {
   ChartConfig,
@@ -23,14 +23,14 @@ import {
   ChartTooltipContent,
 } from "@/components/ui/chart";
 
-export function InterestCalculatorChart() {
-  const { yearResults } = useYearResults();
+export function GoalCalculatorChart() {
+  const { goalResults } = useGoalResults();
 
-  if (!yearResults.length) {
+  if (!goalResults.length) {
     return null;
   }
 
-  const chartData = getCompoundInterestChart(yearResults);
+  const chartData = getCompoundInterestChart(goalResults);
 
   const chartConfig = {
     totalInvestment: {
@@ -50,8 +50,8 @@ export function InterestCalculatorChart() {
   return (
     <Card className="h-fit">
       <CardHeader>
-        <CardTitle>Investment Growth Projection</CardTitle>
-        <CardDescription>Invested Amount + Interest</CardDescription>
+        <CardTitle>Goal Projection</CardTitle>
+        <CardDescription>Growth projection until goal amount</CardDescription>
       </CardHeader>
       <CardContent>
         <ChartContainer config={chartConfig} className="h-[275px] w-[425px]">
@@ -97,7 +97,7 @@ export function InterestCalculatorChart() {
       </CardContent>
       <CardFooter className="flex justify-center">
         <span className="text-sm text-muted-foreground">
-          Growth projection over a {yearResults.length} year period
+          Goal will be reached in a {goalResults.length} year period
         </span>
       </CardFooter>
     </Card>

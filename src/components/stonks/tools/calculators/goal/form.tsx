@@ -30,21 +30,25 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { toast } from "@/hooks/use-toast";
 
-import { create } from "@/actions/stonks/tools/calculators/interest/save";
-import { calculateCompoundInterest } from "@/lib/stonks/tools/calculators/interest";
-import { useYearResults } from "@/context/stonks/tools/calculators/interest/year-results";
+import { useGoalResults } from "@/context/stonks/tools/calculators/goal/goal-results";
+import { save } from "@/actions/stonks/tools/calculators/goal/save";
+import { calculateGoal } from "@/lib/stonks/tools/calculators/goal";
 
 // Define the raw form schema (what the form actually handles)
 const formSchema = z.object({
+  goalAmount: z.string(),
   initialAmount: z.string(),
   annualPercentage: z.string(),
-  timePeriod: z.string(),
   contributionAmount: z.string(),
   contributionInterval: z.string().default("monthly"),
 });
 
 // Define the parsed schema (what gets submitted)
 const parsedSchema = z.object({
+  goalAmount: z
+    .number()
+    .min(0, "Goal amount must be greater than 0")
+    .max(99999999, "Goal amount must be less than 99999999"),
   initialAmount: z
     .number()
     .min(0, "Initial amount must be greater than 0")
@@ -53,10 +57,6 @@ const parsedSchema = z.object({
     .number()
     .min(0, "Annual percentage must be greater than 0")
     .max(100, "Annual percentage must be less than 100"),
-  timePeriod: z
-    .number()
-    .min(1, "Time period must be greater than 1")
-    .max(100, "Time period must be less than 100"),
   contributionAmount: z
     .number()
     .min(0, "Contribution amount must be greater than 0")
@@ -67,15 +67,15 @@ const parsedSchema = z.object({
 type FormValues = z.infer<typeof formSchema>;
 type ParsedValues = z.infer<typeof parsedSchema>;
 
-export default function InterestCalculator() {
-  const { setYearResults } = useYearResults();
+export default function GoalCalculator() {
+  const { setGoalResults } = useGoalResults();
 
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
+      goalAmount: "100000",
       initialAmount: "1000",
       annualPercentage: "8",
-      timePeriod: "40",
       contributionAmount: "0",
       contributionInterval: "monthly",
     },
@@ -85,22 +85,22 @@ export default function InterestCalculator() {
     try {
       const numericData: ParsedValues = {
         ...data,
+        goalAmount: Number(data.goalAmount),
         initialAmount: Number(data.initialAmount),
         annualPercentage: Number(data.annualPercentage),
-        timePeriod: Number(data.timePeriod),
         contributionAmount: Number(data.contributionAmount),
       } as ParsedValues;
 
-      const results = calculateCompoundInterest(numericData);
-      setYearResults(results);
+      const results = calculateGoal(numericData);
+      setGoalResults(results);
 
       toast({
         variant: "success",
-        title: "Interest calculated",
-        description: "Your interest has been calculated successfully",
+        title: "Goal calculated",
+        description: "Your goal has been calculated successfully",
       });
 
-      await create(numericData);
+      await save(numericData);
     } catch (error) {
       console.error(error);
       if (error instanceof z.ZodError) {
@@ -122,12 +122,31 @@ export default function InterestCalculator() {
   return (
     <Card className="max-w-fit">
       <CardHeader>
-        <CardTitle>Interest Calculator</CardTitle>
-        <CardDescription>Compound and simple interest</CardDescription>
+        <CardTitle>Goal Calculator</CardTitle>
+        <CardDescription>Achieve savings targets soon</CardDescription>
       </CardHeader>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
           <CardContent className="flex flex-col pb-0 gap-2.5">
+            <FormField
+              control={form.control}
+              name="goalAmount"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Goal Amount ($)</FormLabel>
+                  <FormControl>
+                    <Input
+                      type="text"
+                      inputMode="numeric"
+                      pattern="[0-9]*"
+                      placeholder="100000"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
             <FormField
               control={form.control}
               name="initialAmount"
@@ -166,26 +185,6 @@ export default function InterestCalculator() {
                 </FormItem>
               )}
             />
-            <FormField
-              control={form.control}
-              name="timePeriod"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Time Period (Years)</FormLabel>
-                  <FormControl>
-                    <Input
-                      type="text"
-                      inputMode="numeric"
-                      pattern="[0-9]*"
-                      placeholder="40"
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
             <Accordion type="single" collapsible>
               <AccordionItem value="item-1" className="border-0">
                 <AccordionTrigger className="py-2 text-muted-foreground text-xs">
