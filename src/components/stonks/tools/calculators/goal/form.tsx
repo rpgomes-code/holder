@@ -28,7 +28,7 @@ import {
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { toast } from "@/hooks/use-toast";
+import { toast } from "sonner";
 
 import { useGoalResults } from "@/context/stonks/tools/calculators/goal/goal-results";
 import { save } from "@/actions/stonks/tools/calculators/goal/save";
@@ -94,27 +94,21 @@ export default function GoalCalculator() {
       const results = calculateGoal(numericData);
       setGoalResults(results);
 
-      toast({
-        variant: "success",
-        title: "Goal calculated",
+      toast.success("Goal calculated", {
         description: "Your goal has been calculated successfully",
-      });
+      })
 
       await save(numericData);
     } catch (error) {
       console.error(error);
       if (error instanceof z.ZodError) {
-        toast({
-          title: "Validation Error",
+        toast.error("Validation Error", {
           description: "Please check your input values",
-          variant: "destructive",
-        });
+        })
       } else {
-        toast({
-          title: "Error",
+        toast.error("Error", {
           description: "An unexpected error occurred",
-          variant: "destructive",
-        });
+        })
       }
     }
   }
