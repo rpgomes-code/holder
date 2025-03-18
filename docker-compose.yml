@@ -15,7 +15,8 @@ services:
       - DATABASE_URL=postgresql://postgres:postgres@db:5432/holder
       - NEXT_TELEMETRY_DISABLED=1
     depends_on:
-      - db
+      migrate:
+        condition: service_completed_successfully
     networks:
       - holder-network
 
@@ -32,6 +33,26 @@ services:
       - POSTGRES_DB=holder
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - holder-network
+
+  # Migration service
+  migrate:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: holder-migrate
+    command: sh -c "bunx prisma generate && bunx prisma migrate deploy"
+    environment:
+      - DATABASE_URL=postgresql://postgres:postgres@db:5432/holder
+    depends_on:
+      db:
+        condition: service_healthy
     networks:
       - holder-network
 
