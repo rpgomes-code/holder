@@ -18,17 +18,18 @@ apiClient.interceptors.response.use(
     }
 );
 
-// API methods for stock data
+// API methods related with Stock
 export const stockService = {
-    // Ticker information
-    async getTickerInfo(ticker: string) {
-        const response = await apiClient.get(`/v1/ticker/${ticker}/info`);
-        return response.data;
-    },
 
     // Ticker Basic information
     async getTickerBasicInfo(ticker: string) {
         const response = await apiClient.get(`/v1/ticker/${ticker}/fast-info`);
+        return response.data;
+    },
+
+    // Ticker Complete Information
+    async getTickerInfo(ticker: string) {
+        const response = await apiClient.get(`/v1/ticker/${ticker}/info`);
         return response.data;
     },
 
@@ -38,12 +39,162 @@ export const stockService = {
         return response.data;
     },
 
+    // Ticker ISIN
     async getTickerIsin(ticker: string) {
         const response = await apiClient.get(`/v1/ticker/${ticker}/isin`);
         return response.data;
     },
 
-    // Ticker historical data with optional parameters
+    // Ticker Funds Information
+    async getTickerFundsData(ticker: string) {
+        const response = await apiClient.get(`/v1/ticker/${ticker}/funds-data`);
+        return response.data;
+    },
+
+    // Ticker Insider Purchases
+    async getTickerInsiderPurchases(ticker: string) {
+        const response = await apiClient.get(`/v1/ticker/${ticker}/insider-purchases`);
+        return response.data;
+    },
+
+    // Ticker Insider Roster Holders
+    async getTickerInsiderRosterHolders(ticker: string) {
+        const response = await apiClient.get(`/v1/ticker/${ticker}/insider-roster-holders`);
+        return response.data;
+    },
+
+    // Ticker Insider Transactions
+    async getTickerInsiderTransactions(ticker: string) {
+        const response = await apiClient.get(`/v1/ticker/${ticker}/insider-transactions`);
+        return response.data;
+    },
+
+    // Ticker Institutional Holders
+    async getTickerInstitutionalHolders(ticker: string) {
+        const response = await apiClient.get(`/v1/ticker/${ticker}/institutional-holders`);
+        return response.data;
+    },
+
+    // Ticker Major Holders
+    async getTickerMajorHolders(ticker: string) {
+        const response = await apiClient.get(`/v1/ticker/${ticker}/major-holders`);
+        return response.data;
+    },
+
+    // Ticker Mutual Fund Holders
+    async getTickerMutualFundHolders(ticker: string) {
+        const response = await apiClient.get(`/v1/ticker/${ticker}/mutualfund-holders`);
+        return response.data;
+    },
+
+    // Ticker Corporate Actions
+    async getTickerActions(ticker: string) {
+        const response = await apiClient.get(`/v1/ticker/${ticker}/actions`);
+        return response.data;
+    },
+
+    // Ticker Calendar
+    async getTickerCalendar(ticker: string) {
+        const response = await apiClient.get(`/v1/ticker/${ticker}/calendar`);
+        return response.data;
+    },
+
+    // Ticker Capital Gains
+    async getTickerCapitalGains(ticker: string) {
+        const response = await apiClient.get(`/v1/ticker/${ticker}/capital-gains`);
+        return response.data;
+    },
+
+    // Ticker Options
+    async getTickerOptions(ticker: string) {
+        const response = await apiClient.get(`/v1/ticker/${ticker}/options`);
+        return response.data;
+    },
+
+    // Ticker Options Chain
+    async getTickerOptionsChain(ticker: string, date?: string) {
+        const params = date ? { date } : {};
+        const response = await apiClient.get(`/v1/ticker/${ticker}/option-chain`, { params });
+        return response.data;
+    },
+
+    // Ticker Dividends
+    async getTickerDividends(ticker: string) {
+        const response = await apiClient.get(`/v1/ticker/${ticker}/dividends`);
+        return response.data;
+    },
+
+    // Ticker News
+    async getTickerNews(ticker: string) {
+        const response = await apiClient.get(`/v1/ticker/${ticker}/news`);
+        return response.data;
+    },
+
+    // Ticker Shares
+    async getTickerShares(ticker: string) {
+        const response = await apiClient.get(`/v1/ticker/${ticker}/shares`);
+        return response.data;
+    },
+
+    // Ticker Splits
+    async getTickerSplits(ticker: string) {
+        const response = await apiClient.get(`/v1/ticker/${ticker}/splits`);
+        return response.data;
+    },
+
+    // Ticker Sustainability
+    async getTickerSustainability(ticker: string) {
+        const response = await apiClient.get(`/v1/ticker/${ticker}/sustainability`);
+        return response.data;
+    },
+
+    // Ticker Recommendations
+    async getTickerRecommendations(ticker: string) {
+        const response = await apiClient.get(`/v1/ticker/${ticker}/recommendations`);
+        return response.data;
+    },
+
+    // Ticker Recommendations Summary
+    async getTickerRecommendationsSummary(ticker: string) {
+        const response = await apiClient.get(`/v1/ticker/${ticker}/recommendations-summary`);
+        return response.data;
+    },
+
+    // Ticker Growth Estimates
+    async getTickerGrowthEstimates(ticker: string) {
+        const response = await apiClient.get(`/v1/ticker/${ticker}/growth-estimates`);
+        return response.data;
+    },
+
+    // Ticker Revenue Estimate
+    async getTickerRevenueEstimate(ticker: string) {
+        const response = await apiClient.get(`/v1/ticker/${ticker}/revenue-estimate`);
+        return response.data;
+    },
+
+    // Ticker SEC Filings
+    async getTickerSECFilings(ticker: string) {
+        const response = await apiClient.get(`/v1/ticker/${ticker}/sec-filings`);
+        return response.data;
+    },
+
+    async getTickerUpgradesDowngrades(ticker: string) {
+        const response = await apiClient.get(`/v1/ticker/${ticker}/upgrades-downgrades`);
+        return response.data;
+    },
+
+    async getTickerAnalystPriceTargets(ticker: string) {
+        const response = await apiClient.get(`/v1/ticker/${ticker}/analyst-price-targets`);
+        return response.data;
+    },
+
+    // Ticker History Metadata
+    async getTickerHistoryMetadata(ticker: string) {
+        const response = await apiClient.get(`/v1/ticker/${ticker}/history-metadata`);
+        return response.data;
+    },
+
+    // Ticker Historical data with optional parameters
     async getTickerHistory(
         ticker: string,
         params: {
@@ -59,256 +210,93 @@ export const stockService = {
         return response.data;
     },
 
-    // Financial data endpoints
+    // Ticker Financial data
     async getTickerFinancials(ticker: string) {
         const response = await apiClient.get(`/v1/ticker/${ticker}/financials`);
         return response.data;
     },
 
+    // Ticker Quarterly Financial data
     async getTickerQuarterlyFinancials(ticker: string) {
         const response = await apiClient.get(`/v1/ticker/${ticker}/quarterly-financials`);
         return response.data;
     },
 
-    async getTickerFundsData(ticker: string) {
-        const response = await apiClient.get(`/v1/ticker/${ticker}/funds-data`);
-        return response.data;
-    },
-
-    async getTickerInsiderPurchases(ticker: string) {
-        const response = await apiClient.get(`/v1/ticker/${ticker}/insider-purchases`);
-        return response.data;
-    },
-
-    async getTickerInsiderRosterHolders(ticker: string) {
-        const response = await apiClient.get(`/v1/ticker/${ticker}/insider-roster-holders`);
-        return response.data;
-    },
-
-    async getTickerInsiderTransactions(ticker: string) {
-        const response = await apiClient.get(`/v1/ticker/${ticker}/insider-transactions`);
-        return response.data;
-    },
-
-    async getTickerInstitutionalHolders(ticker: string) {
-        const response = await apiClient.get(`/v1/ticker/${ticker}/institutional-holders`);
-        return response.data;
-    },
-
-    async getTickerMajorHolders(ticker: string) {
-        const response = await apiClient.get(`/v1/ticker/${ticker}/major-holders`);
-        return response.data;
-    },
-
-    async getTickerMutualFundHolders(ticker: string) {
-        const response = await apiClient.get(`/v1/ticker/${ticker}/mutualfund-holders`);
-        return response.data;
-    },
-
-    async getTickerActions(ticker: string) {
-        const response = await apiClient.get(`/v1/ticker/${ticker}/actions`);
-        return response.data;
-    },
-
-    async getTickerCalendar(ticker: string) {
-        const response = await apiClient.get(`/v1/ticker/${ticker}/calendar`);
-        return response.data;
-    },
-
-    async getTickerCapitalGains(ticker: string) {
-        const response = await apiClient.get(`/v1/ticker/${ticker}/capital-gains`);
-        return response.data;
-    },
-
-    async getTickerOptions(ticker: string) {
-        const response = await apiClient.get(`/v1/ticker/${ticker}/options`);
-        return response.data;
-    },
-
-    async getTickerGrowthEstimates(ticker: string) {
-        const response = await apiClient.get(`/v1/ticker/${ticker}/growth-estimates`);
-        return response.data;
-    },
-
-    async getTickerHistoryMetadata(ticker: string) {
-        const response = await apiClient.get(`/v1/ticker/${ticker}/history-metadata`);
-        return response.data;
-    },
-
+    // Ticker Balance Sheet
     async getTickerBalanceSheet(ticker: string) {
         const response = await apiClient.get(`/v1/ticker/${ticker}/balance-sheet`);
         return response.data;
     },
 
+    // Ticker Quarterly Balance Sheet
     async getTickerQuarterlyBalanceSheet(ticker: string) {
         const response = await apiClient.get(`/v1/ticker/${ticker}/quarterly-balance-sheet`);
         return response.data;
     },
 
+    // Ticker Cash Flow
     async getTickerCashFlow(ticker: string) {
         const response = await apiClient.get(`/v1/ticker/${ticker}/cash-flow`);
         return response.data;
     },
 
+    // Ticker Quarterly Cash Flow
     async getTickerQuarterlyCashFlow(ticker: string) {
         const response = await apiClient.get(`/v1/ticker/${ticker}/quarterly-cash-flow`);
         return response.data;
     },
 
+    // Ticker Income Statement
     async getTickerIncomeStatement(ticker: string) {
         const response = await apiClient.get(`/v1/ticker/${ticker}/income-stmt`);
         return response.data;
     },
 
+    // Ticker Quarterly Income Statement
     async getTickerQuarterlyIncomeStatement(ticker: string) {
         const response = await apiClient.get(`/v1/ticker/${ticker}/quarterly-income-stmt`);
         return response.data;
     },
 
-    // Earnings and Dividends
+    // Ticker Earnings
     async getTickerEarnings(ticker: string) {
         const response = await apiClient.get(`/v1/ticker/${ticker}/earnings`);
         return response.data;
     },
 
+    // Ticker Quarterly Earnings
     async getTickerQuarterlyEarnings(ticker: string) {
         const response = await apiClient.get(`/v1/ticker/${ticker}/quarterly-earnings`);
         return response.data;
     },
 
+    // Ticker Earnings Dates
     async getTickerEarningsDates(ticker: string) {
         const response = await apiClient.get(`/v1/ticker/${ticker}/earnings-dates`);
         return response.data;
     },
 
+    // Ticker Earnings Estimates
     async getTickerEarningsEstimate(ticker: string) {
         const response = await apiClient.get(`/v1/ticker/${ticker}/earnings-estimate`);
         return response.data;
     },
 
+    // Ticker Earnings History
     async getTickerEarningsHistory(ticker: string) {
         const response = await apiClient.get(`/v1/ticker/${ticker}/earnings-history`);
         return response.data;
     },
 
+    // Ticker Earnings Per Share Revisions
     async getTickerEPSRevisions(ticker: string) {
         const response = await apiClient.get(`/v1/ticker/${ticker}/eps-revisions`);
         return response.data;
     },
 
+    // Ticker Earnings Per Share Trend
     async getTickerEPSTrend(ticker: string) {
         const response = await apiClient.get(`/v1/ticker/${ticker}/eps-trend`);
-        return response.data;
-    },
-
-    async getTickerDividends(ticker: string) {
-        const response = await apiClient.get(`/v1/ticker/${ticker}/dividends`);
-        return response.data;
-    },
-
-    // News
-    async getTickerNews(ticker: string) {
-        const response = await apiClient.get(`/v1/ticker/${ticker}/news`);
-        return response.data;
-    },
-
-    // Recommendations and Analysis
-    async getTickerRecommendations(ticker: string) {
-        const response = await apiClient.get(`/v1/ticker/${ticker}/recommendations`);
-        return response.data;
-    },
-
-    async getTickerRecommendationsSummary(ticker: string) {
-        const response = await apiClient.get(`/v1/ticker/${ticker}/recommendations-summary`);
-        return response.data;
-    },
-
-    async getTickerRevenueEstimate(ticker: string) {
-        const response = await apiClient.get(`/v1/ticker/${ticker}/revenue-estimate`);
-        return response.data;
-    },
-
-    async getTickerSECFilings(ticker: string) {
-        const response = await apiClient.get(`/v1/ticker/${ticker}/sec-filings`);
-        return response.data;
-    },
-
-    async getTickerShares(ticker: string) {
-        const response = await apiClient.get(`/v1/ticker/${ticker}/shares`);
-        return response.data;
-    },
-
-    async getTickerSplits(ticker: string) {
-        const response = await apiClient.get(`/v1/ticker/${ticker}/splits`);
-        return response.data;
-    },
-
-    async getTickerSustainability(ticker: string) {
-        const response = await apiClient.get(`/v1/ticker/${ticker}/sustainability`);
-        return response.data;
-    },
-
-    async getTickerUpgradesDowngrades(ticker: string) {
-        const response = await apiClient.get(`/v1/ticker/${ticker}/upgrades-downgrades`);
-        return response.data;
-    },
-
-    async getTickerAnalystPriceTargets(ticker: string) {
-        const response = await apiClient.get(`/v1/ticker/${ticker}/analyst-price-targets`);
-        return response.data;
-    },
-
-    // Search
-    async searchQuotes(query: string) {
-        const response = await apiClient.get(`/v1/search/${query}/quotes`);
-        return response.data;
-    },
-
-    async searchAll(query: string) {
-        const response = await apiClient.get(`/v1/search/${query}/all`);
-        return response.data;
-    },
-
-    async searchLists(query: string) {
-        const response = await apiClient.get(`/v1/search/${query}/lists`);
-        return response.data;
-    },
-
-    async searchNews(query: string) {
-        const response = await apiClient.get(`/v1/search/${query}/news`);
-        return response.data;
-    },
-
-    async searchResearch(query: string) {
-        const response = await apiClient.get(`/v1/search/${query}/research`);
-        return response.data;
-    },
-
-    async searchResponse(query: string) {
-        const response = await apiClient.get(`/v1/search/${query}/response`);
-        return response.data;
-    },
-
-    // Market data
-    async getMarketStatus(market: string = 'us') {
-        const response = await apiClient.get(`/v1/market/${market}/status`);
-        return response.data;
-    },
-
-    async getMarketSummary(market: string = 'us') {
-        const response = await apiClient.get(`/v1/market/${market}/summary`);
-        return response.data;
-    },
-
-    async getMarketMovers(market: string, direction: 'gainers' | 'losers') {
-        const response = await apiClient.get(`/v1/market/${market}/movers/${direction}`);
-        return response.data;
-    },
-
-    // Options data
-    async getTickerOptionsChain(ticker: string, date?: string) {
-        const params = date ? { date } : {};
-        const response = await apiClient.get(`/v1/ticker/${ticker}/option-chain`, { params });
         return response.data;
     },
 
@@ -318,6 +306,196 @@ export const stockService = {
         const response = await apiClient.get(`/v1/multi-ticker?symbols=${symbols}`);
         return response.data;
     }
+};
+
+// API methods related with Search
+export const searchService = {
+
+    // Search Quotes
+    async searchQuotes(query: string) {
+        const response = await apiClient.get(`/v1/search/${query}/quotes`);
+        return response.data;
+    },
+
+    // Search All / Everything (Quotes, News,...)
+    async searchAll(query: string) {
+        const response = await apiClient.get(`/v1/search/${query}/all`);
+        return response.data;
+    },
+
+    // Search Lists
+    async searchLists(query: string) {
+        const response = await apiClient.get(`/v1/search/${query}/lists`);
+        return response.data;
+    },
+
+    // Search News
+    async searchNews(query: string) {
+        const response = await apiClient.get(`/v1/search/${query}/news`);
+        return response.data;
+    },
+
+    // Search Research
+    async searchResearch(query: string) {
+        const response = await apiClient.get(`/v1/search/${query}/research`);
+        return response.data;
+    },
+
+    // Raw Search Response
+    async searchResponse(query: string) {
+        const response = await apiClient.get(`/v1/search/${query}/response`);
+        return response.data;
+    },
+};
+
+// API methods related with Market
+export const marketService = {
+
+    // Market Status
+    async getMarketStatus(market: string = 'us') {
+        const response = await apiClient.get(`/v1/market/${market}/status`);
+        return response.data;
+    },
+
+    // Market Summary / Information
+    async getMarketSummary(market: string = 'us') {
+        const response = await apiClient.get(`/v1/market/${market}/summary`);
+        return response.data;
+    },
+};
+
+// API methods related with Sector
+export const sectorService = {
+
+    // Sector Industries
+    async getSectorIndustries(sector: string) {
+        const response = await apiClient.get(`/v1/sector/${sector}/industries`);
+        return response.data;
+    },
+
+    // Sector Key
+    async getSectorKey(sector: string) {
+        const response = await apiClient.get(`/v1/sector/${sector}/key`);
+        return response.data;
+    },
+
+    // Sector Name
+    async getSectorName(sector: string) {
+        const response = await apiClient.get(`/v1/sector/${sector}/name`);
+        return response.data;
+    },
+
+    // Sector Overview
+    async getSectorOverview(sector: string) {
+        const response = await apiClient.get(`/v1/sector/${sector}/overview`);
+        return response.data;
+    },
+
+    // Sector Research Reports
+    async getSectorResearchReports(sector: string) {
+        const response = await apiClient.get(`/v1/sector/${sector}/research-reports`);
+        return response.data;
+    },
+
+    // Sector Symbol
+    async getSectorSymbol(sector: string) {
+        const response = await apiClient.get(`/v1/sector/${sector}/symbol`);
+        return response.data;
+    },
+
+    // Sector Ticker
+    async getSectorTicker(sector: string) {
+        const response = await apiClient.get(`/v1/sector/${sector}/ticker`);
+        return response.data;
+    },
+
+    // Sector Top Companies
+    async getSectorTopCompanies(sector: string) {
+        const response = await apiClient.get(`/v1/sector/${sector}/top-companies`);
+        return response.data;
+    },
+
+    // Sector Top ETF's
+    async getSectorTopETFs(sector: string) {
+        const response = await apiClient.get(`/v1/sector/${sector}/top-etfs`);
+        return response.data;
+    },
+
+    // Sector Top Mutual Funds
+    async getSectorTopMutualFunds(sector: string) {
+        const response = await apiClient.get(`/v1/sector/${sector}/top-mutual-funds`);
+        return response.data;
+    },
+};
+
+// API methods related with Industry
+export const industryService = {
+
+    // Industry Key
+    async getIndustryKey(industry: string) {
+        const response = await apiClient.get(`/v1/industry/${industry}/key`);
+        return response.data;
+    },
+
+    // Industry Name
+    async getIndustryName(industry: string) {
+        const response = await apiClient.get(`/v1/industry/${industry}/name`);
+        return response.data;
+    },
+
+    // Industry Overview
+    async getIndustryOverview(industry: string) {
+        const response = await apiClient.get(`/v1/industry/${industry}/overview`);
+        return response.data;
+    },
+
+    // Industry Research Reports
+    async getIndustryResearchReports(industry: string) {
+        const response = await apiClient.get(`/v1/industry/${industry}/research-reports`);
+        return response.data;
+    },
+
+    // Industry Sector Key
+    async getIndustrySectorKey(industry: string) {
+        const response = await apiClient.get(`/v1/industry/${industry}/sector-key`);
+        return response.data;
+    },
+
+    // Industry Sector Name
+    async getIndustrySectorName(industry: string) {
+        const response = await apiClient.get(`/v1/industry/${industry}/sector-name`);
+        return response.data;
+    },
+
+    // Industry Symbol
+    async getIndustrySymbol(industry: string) {
+        const response = await apiClient.get(`/v1/industry/${industry}/symbol`);
+        return response.data;
+    },
+
+    // Industry Ticker
+    async getIndustryTicker(industry: string) {
+        const response = await apiClient.get(`/v1/industry/${industry}/ticker`);
+        return response.data;
+    },
+
+    // Industry Top Companies
+    async getIndustryTopCompanies(industry: string) {
+        const response = await apiClient.get(`/v1/industry/${industry}/top-companies`);
+        return response.data;
+    },
+
+    // Industry Top Growth Companies
+    async getIndustryTopGrowthCompanies(industry: string) {
+        const response = await apiClient.get(`/v1/industry/${industry}/top-growth-companies`);
+        return response.data;
+    },
+
+    // Industry Top Performing Companies
+    async getIndustryTopPerformingCompanies(industry: string) {
+        const response = await apiClient.get(`/v1/industry/${industry}/top-performing-companies`);
+        return response.data;
+    },
 };
 
 // Export default for convenience
