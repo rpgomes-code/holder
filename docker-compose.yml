@@ -1,0 +1,44 @@
+services:
+  # Application service
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: holder-app
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/app
+      - /app/node_modules
+    environment:
+      - NODE_ENV=development
+      - DATABASE_URL=postgresql://postgres:postgres@db:5432/holder
+      - NEXT_TELEMETRY_DISABLED=1
+    depends_on:
+      - db
+    networks:
+      - holder-network
+
+  # PostgreSQL database
+  db:
+    image: postgres:16-alpine
+    container_name: holder-db
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=holder
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - holder-network
+
+networks:
+  holder-network:
+    driver: bridge
+
+volumes:
+  postgres_data:
+    driver: local
