@@ -11,8 +11,6 @@ import {
   Line,
   LineChart,
   XAxis,
-  YAxis,
-  Tooltip,
 } from "recharts";
 import { useYearResults } from "@/context/stonks/tools/calculators/interest/year-results";
 import { getCompoundInterestChart } from "@/lib/stonks/tools/calculators/interest";
