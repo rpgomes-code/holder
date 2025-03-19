@@ -1,118 +1,311 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
+generator client {
+  provider = "prisma-client-js"
+}
 
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
-generator client {
-  provider = "prisma-client-js"
-}
-
-// User and authentication models
 model User {
-  id        String   @id @default(cuid())
-  email     String   @unique
-  name      String?
-  password  String // Hashed password
-  image     String?
-  bio       String?
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  // User portfolio information
-  portfolios Portfolio[]
-  watchlists Watchlist[]
-
-  // Calculator history
-  interestCalculations InterestCalculator[]
-  goalCalculations     GoalCalculator[]
-  roicCalculations     ROICCalculator[]
+  email                String               @unique
+  name                 String?
+  password             String
+  image                String?
+  bio                  String?
+  createdAt            DateTime             @default(now())
+  updatedAt            DateTime             @updatedAt
+  publicId             String               @unique @default(uuid())
+  username             String               @unique
+  id                   Int                  @id @default(autoincrement())
+  isActive             Boolean              @default(true)
+  accounts             Account[]
+  comments             Comment[]
   fireCalculations     FIRECalculator[]
-
-  // Community features
-  posts     Post[]
-  comments  Comment[]
-  Like      Like[]
-  followers Follow[]  @relation("UserFollowers")
-  following Follow[]  @relation("UserFollowing")
-
-  // Account linking and session management
-  accounts Account[]
-  sessions Session[]
+  followers            Follow[]             @relation("UserFollowers")
+  following            Follow[]             @relation("UserFollowing")
+  goalCalculations     GoalCalculator[]
+  interestCalculations InterestCalculator[]
+  Like                 Like[]
+  Log                  Log[]                @relation("UserLogs")
+  portfolios           Portfolio[]
+  posts                Post[]
+  roicCalculations     ROICCalculator[]
+  sessions             Session[]
+  watchlists           Watchlist[]
 }
 
-// NextAuth.js models for OAuth providers
 model Account {
-  id                String  @id @default(cuid())
-  userId            String
   type              String
   provider          String
   providerAccountId String
-  refresh_token     String? @db.Text
-  access_token      String? @db.Text
+  refresh_token     String?
+  access_token      String?
   expires_at        Int?
   token_type        String?
   scope             String?
-  id_token          String? @db.Text
+  id_token          String?
   session_state     String?
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  publicId          String  @unique @default(uuid())
+  id                Int     @id @default(autoincrement())
+  userId            Int
+  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([provider, providerAccountId])
 }
 
 model Session {
-  id           String   @id @default(cuid())
   sessionToken String   @unique
-  userId       String
   expires      DateTime
+  publicId     String   @unique @default(uuid())
+  id           Int      @id @default(autoincrement())
+  userId       Int
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
-// Portfolio and asset tracking models
 model Portfolio {
-  id          String   @id @default(cuid())
-  name        String
-  description String?
-  isPublic    Boolean  @default(false)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-
-  userId String
-  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  assets       Asset[]
+  name         String
+  description  String?
+  isPublic     Boolean       @default(false)
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+  publicId     String        @unique @default(uuid())
+  slug         String
+  id           Int           @id @default(autoincrement())
+  userId       Int
+  user         User          @relation(fields: [userId], references: [id], onDelete: Cascade)
   transactions Transaction[]
+  assets       Asset[]       @relation("AssetToPortfolio")
 
   @@index([userId])
 }
 
 model Asset {
-  id           String    @id @default(cuid())
-  ticker       String
-  name         String
-  assetType    AssetType @default(STOCK)
-  currentPrice Float?
-  currency     String    @default("USD")
-
-  // Asset can be in multiple portfolios
-  portfolios Portfolio[]
-
-  // Asset can be in multiple watchlists
-  watchlists Watchlist[]
-
-  // Transactions of this asset
-  transactions Transaction[]
-
-  // For dividend tracking
+  ticker           String
+  name             String
+  assetType        AssetType         @default(STOCK)
+  currentPrice     Float?
+  currency         String            @default("USD")
+  createdAt        DateTime          @default(now())
+  updatedAt        DateTime          @updatedAt
+  publicId         String            @unique @default(uuid())
+  id               Int               @id @default(autoincrement())
   dividendSchedule DividendSchedule?
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  transactions     Transaction[]
+  portfolios       Portfolio[]       @relation("AssetToPortfolio")
+  watchlists       Watchlist[]       @relation("AssetToWatchlist")
 
   @@index([ticker])
+}
+
+model Transaction {
+  type        TransactionType
+  quantity    Float
+  price       Float
+  total       Float
+  fee         Float           @default(0)
+  currency    String          @default("USD")
+  date        DateTime
+  notes       String?
+  createdAt   DateTime        @default(now())
+  updatedAt   DateTime        @updatedAt
+  publicId    String          @unique @default(uuid())
+  id          Int             @id @default(autoincrement())
+  portfolioId Int
+  assetId     Int
+  asset       Asset           @relation(fields: [assetId], references: [id])
+  portfolio   Portfolio       @relation(fields: [portfolioId], references: [id], onDelete: Cascade)
+
+  @@index([portfolioId])
+  @@index([assetId])
+}
+
+model DividendSchedule {
+  frequency      DividendFrequency
+  amount         Float?
+  yield          Float?
+  exDividendDate DateTime?
+  paymentDate    DateTime?
+  createdAt      DateTime          @default(now())
+  updatedAt      DateTime          @updatedAt
+  publicId       String            @unique @default(uuid())
+  id             Int               @id @default(autoincrement())
+  assetId        Int               @unique
+  history        DividendPayment[]
+  asset          Asset             @relation(fields: [assetId], references: [id])
+}
+
+model DividendPayment {
+  amount         Float
+  exDividendDate DateTime
+  paymentDate    DateTime
+  createdAt      DateTime         @default(now())
+  publicId       String           @unique @default(uuid())
+  id             Int              @id @default(autoincrement())
+  scheduleId     Int
+  schedule       DividendSchedule @relation(fields: [scheduleId], references: [id], onDelete: Cascade)
+
+  @@index([scheduleId])
+}
+
+model Watchlist {
+  name        String
+  description String?
+  isPublic    Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  publicId    String   @unique @default(uuid())
+  slug        String   @unique
+  id          Int      @id @default(autoincrement())
+  userId      Int
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  assets      Asset[]  @relation("AssetToWatchlist")
+
+  @@index([userId])
+}
+
+model InterestCalculator {
+  initialAmount        Float
+  annualPercentage     Float
+  timePeriod           Int
+  contributionAmount   Float
+  contributionInterval String
+  results              Json
+  createdAt            DateTime @default(now())
+  publicId             String   @unique @default(uuid())
+  id                   Int      @id @default(autoincrement())
+  userId               Int
+  user                 User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
+
+model GoalCalculator {
+  goalAmount           Float
+  initialAmount        Float
+  annualPercentage     Float
+  contributionAmount   Float
+  contributionInterval String
+  results              Json
+  createdAt            DateTime @default(now())
+  publicId             String   @unique @default(uuid())
+  id                   Int      @id @default(autoincrement())
+  userId               Int
+  user                 User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
+
+model ROICCalculator {
+  initialNopat              Float
+  initialInvestedCapital    Float
+  nopatGrowthRate           Float
+  investedCapitalGrowthRate Float
+  timePeriod                Int
+  results                   Json
+  createdAt                 DateTime @default(now())
+  publicId                  String   @unique @default(uuid())
+  id                        Int      @id @default(autoincrement())
+  userId                    Int
+  user                      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
+
+model FIRECalculator {
+  currentAge            Int
+  currentAnnualExpenses Float
+  currentAnnualIncome   Float
+  currentSavingsRate    Float
+  currentPortfolioValue Float
+  expectedAnnualReturn  Float
+  expectedInflation     Float
+  safeWithdrawalRate    Float
+  results               Json
+  createdAt             DateTime @default(now())
+  publicId              String   @unique @default(uuid())
+  id                    Int      @id @default(autoincrement())
+  userId                Int
+  user                  User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
+
+model Post {
+  title     String
+  content   String
+  published Boolean   @default(true)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  publicId  String    @unique @default(uuid())
+  id        Int       @id @default(autoincrement())
+  userId    Int
+  comments  Comment[]
+  likes     Like[]
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
+
+model Comment {
+  content   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  publicId  String   @unique @default(uuid())
+  id        Int      @id @default(autoincrement())
+  postId    Int
+  userId    Int
+  post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  likes     Like[]
+
+  @@index([postId])
+  @@index([userId])
+}
+
+model Like {
+  createdAt DateTime @default(now())
+  publicId  String   @unique @default(uuid())
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  postId    Int?
+  commentId Int?
+  comment   Comment? @relation(fields: [commentId], references: [id], onDelete: Cascade)
+  post      Post?    @relation(fields: [postId], references: [id], onDelete: Cascade)
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, postId, commentId])
+  @@index([userId])
+  @@index([postId])
+  @@index([commentId])
+}
+
+model Follow {
+  createdAt   DateTime @default(now())
+  publicId    String   @unique @default(uuid())
+  id          Int      @id @default(autoincrement())
+  followerId  Int
+  followingId Int
+  follower    User     @relation("UserFollowers", fields: [followerId], references: [id], onDelete: Cascade)
+  following   User     @relation("UserFollowing", fields: [followingId], references: [id], onDelete: Cascade)
+
+  @@unique([followerId, followingId])
+  @@index([followerId])
+  @@index([followingId])
+}
+
+model Log {
+  id        Int      @id @default(autoincrement())
+  publicId  String   @unique @default(uuid())
+  logType   LogType
+  message   String
+  Location  String?
+  userId    Int
+  createdAt DateTime @default(now())
+  user      User     @relation("UserLogs", fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([publicId])
+  @@index([logType])
 }
 
 enum AssetType {
@@ -124,30 +317,6 @@ enum AssetType {
   CASH
   REAL_ESTATE
   OTHER
-}
-
-model Transaction {
-  id       String          @id @default(cuid())
-  type     TransactionType
-  quantity Float
-  price    Float
-  total    Float
-  fee      Float           @default(0)
-  currency String          @default("USD")
-  date     DateTime
-  notes    String?
-
-  portfolioId String
-  portfolio   Portfolio @relation(fields: [portfolioId], references: [id], onDelete: Cascade)
-
-  assetId String
-  asset   Asset  @relation(fields: [assetId], references: [id])
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  @@index([portfolioId])
-  @@index([assetId])
 }
 
 enum TransactionType {
@@ -162,23 +331,6 @@ enum TransactionType {
   FEE
 }
 
-model DividendSchedule {
-  id             String            @id @default(cuid())
-  frequency      DividendFrequency
-  amount         Float?
-  yield          Float?
-  exDividendDate DateTime?
-  paymentDate    DateTime?
-
-  assetId String @unique
-  asset   Asset  @relation(fields: [assetId], references: [id])
-
-  history DividendPayment[]
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-}
-
 enum DividendFrequency {
   MONTHLY
   QUARTERLY
@@ -187,184 +339,10 @@ enum DividendFrequency {
   IRREGULAR
 }
 
-model DividendPayment {
-  id             String   @id @default(cuid())
-  amount         Float
-  exDividendDate DateTime
-  paymentDate    DateTime
-
-  scheduleId String
-  schedule   DividendSchedule @relation(fields: [scheduleId], references: [id], onDelete: Cascade)
-
-  createdAt DateTime @default(now())
-
-  @@index([scheduleId])
-}
-
-model Watchlist {
-  id          String  @id @default(cuid())
-  name        String
-  description String?
-  isPublic    Boolean @default(false)
-
-  userId String
-  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  assets Asset[]
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  @@index([userId])
-}
-
-// Financial calculator models
-model InterestCalculator {
-  id                   String @id @default(cuid())
-  initialAmount        Float
-  annualPercentage     Float
-  timePeriod           Int
-  contributionAmount   Float
-  contributionInterval String
-
-  // Results can be stored as JSON for flexibility
-  results Json
-
-  userId String
-  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  createdAt DateTime @default(now())
-
-  @@index([userId])
-}
-
-model GoalCalculator {
-  id                   String @id @default(cuid())
-  goalAmount           Float
-  initialAmount        Float
-  annualPercentage     Float
-  contributionAmount   Float
-  contributionInterval String
-
-  results Json
-
-  userId String
-  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  createdAt DateTime @default(now())
-
-  @@index([userId])
-}
-
-model ROICCalculator {
-  id                        String @id @default(cuid())
-  initialNopat              Float
-  initialInvestedCapital    Float
-  nopatGrowthRate           Float
-  investedCapitalGrowthRate Float
-  timePeriod                Int
-
-  results Json
-
-  userId String
-  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  createdAt DateTime @default(now())
-
-  @@index([userId])
-}
-
-model FIRECalculator {
-  id                    String @id @default(cuid())
-  currentAge            Int
-  currentAnnualExpenses Float
-  currentAnnualIncome   Float
-  currentSavingsRate    Float
-  currentPortfolioValue Float
-  expectedAnnualReturn  Float
-  expectedInflation     Float
-  safeWithdrawalRate    Float
-
-  results Json
-
-  userId String
-  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  createdAt DateTime @default(now())
-
-  @@index([userId])
-}
-
-// Community features
-model Post {
-  id        String  @id @default(cuid())
-  title     String
-  content   String  @db.Text
-  published Boolean @default(true)
-
-  userId String
-  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  comments Comment[]
-  likes    Like[]
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  @@index([userId])
-}
-
-model Comment {
-  id      String @id @default(cuid())
-  content String
-
-  postId String
-  post   Post   @relation(fields: [postId], references: [id], onDelete: Cascade)
-
-  userId String
-  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  likes Like[]
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  @@index([postId])
-  @@index([userId])
-}
-
-model Like {
-  id String @id @default(cuid())
-
-  userId String
-  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  postId String?
-  post   Post?   @relation(fields: [postId], references: [id], onDelete: Cascade)
-
-  commentId String?
-  comment   Comment? @relation(fields: [commentId], references: [id], onDelete: Cascade)
-
-  createdAt DateTime @default(now())
-
-  @@unique([userId, postId, commentId])
-  @@index([userId])
-  @@index([postId])
-  @@index([commentId])
-}
-
-model Follow {
-  id String @id @default(cuid())
-
-  followerId String
-  follower   User   @relation("UserFollowers", fields: [followerId], references: [id], onDelete: Cascade)
-
-  followingId String
-  following   User   @relation("UserFollowing", fields: [followingId], references: [id], onDelete: Cascade)
-
-  createdAt DateTime @default(now())
-
-  @@unique([followerId, followingId])
-  @@index([followerId])
-  @@index([followingId])
+enum LogType {
+  INFO
+  WARNING
+  ERROR
+  SUCCESS
+  OTHER
 }

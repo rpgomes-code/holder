@@ -1,21 +1,19 @@
-import { PrismaClient } from "@prisma/client";
 import { v4 as uuidv4 } from 'uuid';
-
-const prisma = new PrismaClient();
+import {createUser, getUserById} from "@/lib/db/crud/user";
 
 // Create a new user
-const createdUser = await prisma.user.create({
-    data: {
-        name: "Test",
-        email: `test@holder.com`,
+const newUser = await createUser(
+    {
+        name: "System User",
+        username: "system",
+        email: `system@holder.com`,
         password: `${uuidv4()}`,
-    },
-});
+        image: null,
+        bio: null,
+        isActive: true
+    }
+);
 
-const user = await prisma.user.findFirst({
-    where: {
-        id: `${createdUser.id}`,
-    },
-});
+const createdUser = await getUserById(newUser.id);
 
-console.log(`The User "${user?.name}" has been created.`);
+console.log(`The User "${createdUser?.username}" has been created.`);
