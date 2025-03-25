@@ -1,5 +1,33 @@
 import axios from 'axios';
-import {TickerFastInfo, TickerImage} from "@/types/api/ticker";
+import {
+    TickerActions,
+    TickerAnalystPriceTargets,
+    TickerBalanceSheet,
+    TickerCalendar,
+    TickerCapitalGains,
+    TickerCashFlow,
+    TickerDividends,
+    TickerEarnings,
+    TickerEarningsDates,
+    TickerEarningsEstimates,
+    TickerEarningsHistory,
+    TickerEPSRevisions, TickerEPSTrend,
+    TickerFastInfo,
+    TickerFinancials,
+    TickerGrowthEstimates,
+    TickerHistory,
+    TickerHistoryMetadata,
+    TickerImage,
+    TickerIncomeStatement,
+    TickerInfo,
+    TickerInsiderPurchases,
+    TickerInsiderRosterHolders,
+    TickerInsiderTransactions,
+    TickerInstitutionalHolders,
+    TickerMajorHolders,
+    TickerMutualFundHolders,
+    TickerNews
+} from "@/types/api/ticker";
 
 // Create an axios instance that points to yfinance wrapper API
 const apiClient = axios.create({
@@ -29,7 +57,7 @@ export const stockService = {
     },
 
     // Ticker Complete Information
-    async getTickerInfo(ticker: string) {
+    async getTickerInfo(ticker: string): Promise<TickerInfo | null> {
         const response = await apiClient.get(`/v1/ticker/${ticker}/info`);
         return response.data;
     },
@@ -41,67 +69,67 @@ export const stockService = {
     },
 
     // Ticker ISIN
-    async getTickerIsin(ticker: string) {
+    async getTickerIsin(ticker: string): Promise<string | null> {
         const response = await apiClient.get(`/v1/ticker/${ticker}/isin`);
         return response.data;
     },
 
     // Ticker Funds Information
-    async getTickerFundsData(ticker: string) {
+    async getTickerFundsData(ticker: string){
         const response = await apiClient.get(`/v1/ticker/${ticker}/funds-data`);
         return response.data;
     },
 
     // Ticker Insider Purchases
-    async getTickerInsiderPurchases(ticker: string) {
+    async getTickerInsiderPurchases(ticker: string): Promise<TickerInsiderPurchases | null> {
         const response = await apiClient.get(`/v1/ticker/${ticker}/insider-purchases`);
         return response.data;
     },
 
     // Ticker Insider Roster Holders
-    async getTickerInsiderRosterHolders(ticker: string) {
+    async getTickerInsiderRosterHolders(ticker: string): Promise<TickerInsiderRosterHolders | null> {
         const response = await apiClient.get(`/v1/ticker/${ticker}/insider-roster-holders`);
         return response.data;
     },
 
     // Ticker Insider Transactions
-    async getTickerInsiderTransactions(ticker: string) {
+    async getTickerInsiderTransactions(ticker: string): Promise<TickerInsiderTransactions | null> {
         const response = await apiClient.get(`/v1/ticker/${ticker}/insider-transactions`);
         return response.data;
     },
 
     // Ticker Institutional Holders
-    async getTickerInstitutionalHolders(ticker: string) {
+    async getTickerInstitutionalHolders(ticker: string): Promise<TickerInstitutionalHolders | null> {
         const response = await apiClient.get(`/v1/ticker/${ticker}/institutional-holders`);
         return response.data;
     },
 
     // Ticker Major Holders
-    async getTickerMajorHolders(ticker: string) {
+    async getTickerMajorHolders(ticker: string): Promise<TickerMajorHolders | null> {
         const response = await apiClient.get(`/v1/ticker/${ticker}/major-holders`);
         return response.data;
     },
 
     // Ticker Mutual Fund Holders
-    async getTickerMutualFundHolders(ticker: string) {
+    async getTickerMutualFundHolders(ticker: string): Promise<TickerMutualFundHolders | null> {
         const response = await apiClient.get(`/v1/ticker/${ticker}/mutualfund-holders`);
         return response.data;
     },
 
     // Ticker Corporate Actions
-    async getTickerActions(ticker: string) {
+    async getTickerActions(ticker: string): Promise<TickerActions | null> {
         const response = await apiClient.get(`/v1/ticker/${ticker}/actions`);
         return response.data;
     },
 
     // Ticker Calendar
-    async getTickerCalendar(ticker: string) {
+    async getTickerCalendar(ticker: string): Promise<TickerCalendar | null> {
         const response = await apiClient.get(`/v1/ticker/${ticker}/calendar`);
         return response.data;
     },
 
     // Ticker Capital Gains
-    async getTickerCapitalGains(ticker: string) {
+    async getTickerCapitalGains(ticker: string): Promise<TickerCapitalGains | null> {
         const response = await apiClient.get(`/v1/ticker/${ticker}/capital-gains`);
         return response.data;
     },
@@ -120,13 +148,13 @@ export const stockService = {
     },
 
     // Ticker Dividends
-    async getTickerDividends(ticker: string) {
+    async getTickerDividends(ticker: string): Promise<TickerDividends | null> {
         const response = await apiClient.get(`/v1/ticker/${ticker}/dividends`);
         return response.data;
     },
 
     // Ticker News
-    async getTickerNews(ticker: string) {
+    async getTickerNews(ticker: string): Promise<TickerNews | null> {
         const response = await apiClient.get(`/v1/ticker/${ticker}/news`);
         return response.data;
     },
@@ -138,7 +166,7 @@ export const stockService = {
     },
 
     // Ticker Splits
-    async getTickerSplits(ticker: string) {
+    async getTickerSplits(ticker: string){
         const response = await apiClient.get(`/v1/ticker/${ticker}/splits`);
         return response.data;
     },
@@ -162,7 +190,7 @@ export const stockService = {
     },
 
     // Ticker Growth Estimates
-    async getTickerGrowthEstimates(ticker: string) {
+    async getTickerGrowthEstimates(ticker: string): Promise<TickerGrowthEstimates | null> {
         const response = await apiClient.get(`/v1/ticker/${ticker}/growth-estimates`);
         return response.data;
     },
@@ -184,13 +212,13 @@ export const stockService = {
         return response.data;
     },
 
-    async getTickerAnalystPriceTargets(ticker: string) {
+    async getTickerAnalystPriceTargets(ticker: string): Promise<TickerAnalystPriceTargets | null> {
         const response = await apiClient.get(`/v1/ticker/${ticker}/analyst-price-targets`);
         return response.data;
     },
 
     // Ticker History Metadata
-    async getTickerHistoryMetadata(ticker: string) {
+    async getTickerHistoryMetadata(ticker: string): Promise<TickerHistoryMetadata | null> {
         const response = await apiClient.get(`/v1/ticker/${ticker}/history-metadata`);
         return response.data;
     },
@@ -206,13 +234,13 @@ export const stockService = {
             prepost?: boolean;
             actions?: boolean;
         } = {}
-    ) {
+    ): Promise<TickerHistory | null> {
         const response = await apiClient.get(`/v1/ticker/${ticker}/history`, { params });
         return response.data;
     },
 
     // Ticker Financial data
-    async getTickerFinancials(ticker: string) {
+    async getTickerFinancials(ticker: string): Promise<TickerFinancials | null> {
         const response = await apiClient.get(`/v1/ticker/${ticker}/financials`);
         return response.data;
     },
@@ -224,7 +252,7 @@ export const stockService = {
     },
 
     // Ticker Balance Sheet
-    async getTickerBalanceSheet(ticker: string) {
+    async getTickerBalanceSheet(ticker: string): Promise<TickerBalanceSheet | null> {
         const response = await apiClient.get(`/v1/ticker/${ticker}/balance-sheet`);
         return response.data;
     },
@@ -236,7 +264,7 @@ export const stockService = {
     },
 
     // Ticker Cash Flow
-    async getTickerCashFlow(ticker: string) {
+    async getTickerCashFlow(ticker: string): Promise<TickerCashFlow | null> {
         const response = await apiClient.get(`/v1/ticker/${ticker}/cash-flow`);
         return response.data;
     },
@@ -248,7 +276,7 @@ export const stockService = {
     },
 
     // Ticker Income Statement
-    async getTickerIncomeStatement(ticker: string) {
+    async getTickerIncomeStatement(ticker: string): Promise<TickerIncomeStatement | null> {
         const response = await apiClient.get(`/v1/ticker/${ticker}/income-stmt`);
         return response.data;
     },
@@ -260,7 +288,7 @@ export const stockService = {
     },
 
     // Ticker Earnings
-    async getTickerEarnings(ticker: string) {
+    async getTickerEarnings(ticker: string): Promise<TickerEarnings | null> {
         const response = await apiClient.get(`/v1/ticker/${ticker}/earnings`);
         return response.data;
     },
@@ -272,31 +300,31 @@ export const stockService = {
     },
 
     // Ticker Earnings Dates
-    async getTickerEarningsDates(ticker: string) {
+    async getTickerEarningsDates(ticker: string): Promise<TickerEarningsDates | null> {
         const response = await apiClient.get(`/v1/ticker/${ticker}/earnings-dates`);
         return response.data;
     },
 
     // Ticker Earnings Estimates
-    async getTickerEarningsEstimate(ticker: string) {
+    async getTickerEarningsEstimate(ticker: string): Promise<TickerEarningsEstimates | null> {
         const response = await apiClient.get(`/v1/ticker/${ticker}/earnings-estimate`);
         return response.data;
     },
 
     // Ticker Earnings History
-    async getTickerEarningsHistory(ticker: string) {
+    async getTickerEarningsHistory(ticker: string): Promise<TickerEarningsHistory | null> {
         const response = await apiClient.get(`/v1/ticker/${ticker}/earnings-history`);
         return response.data;
     },
 
     // Ticker Earnings Per Share Revisions
-    async getTickerEPSRevisions(ticker: string) {
+    async getTickerEPSRevisions(ticker: string): Promise<TickerEPSRevisions | null> {
         const response = await apiClient.get(`/v1/ticker/${ticker}/eps-revisions`);
         return response.data;
     },
 
     // Ticker Earnings Per Share Trend
-    async getTickerEPSTrend(ticker: string) {
+    async getTickerEPSTrend(ticker: string): Promise<TickerEPSTrend | null> {
         const response = await apiClient.get(`/v1/ticker/${ticker}/eps-trend`);
         return response.data;
     },
