@@ -1,33 +1,33 @@
 export interface TickerImage {
-    imageURL?: string;
+    imageURL?: string | null;
 }
 
 export interface TickerHistory {
-    date?:     Date;
-    open?:     number;
-    high?:     number;
-    low?:      number;
-    close?:    number;
-    volume?:   number;
-    repaired?: boolean;
+    date?:     Date | null;
+    open?:     number | null;
+    high?:     number | null;
+    low?:      number | null;
+    close?:    number | null;
+    volume?:   number | null;
+    repaired?: boolean | null;
 }
 
 export interface TickerActions {
-    date?:        Date;
-    dividends?:   number;
-    stockSplits?: number;
+    date?:        Date | null;
+    dividends?:   number | null;
+    stockSplits?: number | null;
 }
 
 export interface TickerAnalystPriceTargets {
-    current?: number;
-    high?:    number;
-    low?:     number;
-    mean?:    number;
-    median?:  number;
+    current?: number | null;
+    high?:    number | null;
+    low?:     number | null;
+    mean?:    number | null;
+    median?:  number | null;
 }
 
 export interface TickerBalanceSheet { // Fix this Type
-    index?:             string;
+    index?:             string | null;
     the20240930000000?: number | null;
     the20230930000000?: number | null;
     the20220930000000?: number | null;
@@ -36,22 +36,22 @@ export interface TickerBalanceSheet { // Fix this Type
 }
 
 export interface TickerCalendar {
-    dividendDate?:    Date;
-    exDividendDate?:  Date;
-    earningsDate?:    Date[];
-    earningsHigh?:    number;
-    earningsLow?:     number;
-    earningsAverage?: number;
-    revenueHigh?:     number;
-    revenueLow?:      number;
-    revenueAverage?:  number;
+    dividendDate?:    Date | null;
+    exDividendDate?:  Date | null;
+    earningsDate?:    Date[] | null;
+    earningsHigh?:    number | null;
+    earningsLow?:     number | null;
+    earningsAverage?: number | null;
+    revenueHigh?:     number | null;
+    revenueLow?:      number | null;
+    revenueAverage?:  number | null;
 }
 
 export interface TickerCapitalGains { // Fix this Type
 }
 
 export interface TickerCashFlow { // Fix this Type
-    index?:             string;
+    index?:             string | null;
     the20241231000000?: number | null;
     the20231231000000?: number | null;
     the20221231000000?: number | null;
@@ -60,351 +60,351 @@ export interface TickerCashFlow { // Fix this Type
 }
 
 export interface TickerDividends {
-    date?:  Date;
-    value?: number;
+    date?:  Date | null;
+    value?: number | null;
 }
 
 export interface TickerEarnings { // Fix this Type
 }
 
 export interface TickerEarningsDates {
-    earningsDate?: Date;
+    earningsDate?: Date | null;
     epsEstimate?:  number | null;
     reportedEPS?:  number | null;
     surprise?:     number | null;
 }
 
 export interface TickerEarningsEstimates {
-    period?:           string;
-    avg?:              number;
-    low?:              number;
-    high?:             number;
-    yearAgoEps?:       number;
-    numberOfAnalysts?: number;
-    growth?:           number;
+    period?:           string | null;
+    avg?:              number | null;
+    low?:              number | null;
+    high?:             number | null;
+    yearAgoEps?:       number | null;
+    numberOfAnalysts?: number | null;
+    growth?:           number | null;
 }
 
 export interface TickerEarningsHistory {
-    quarter?:         Date;
-    epsActual?:       number;
-    epsEstimate?:     number;
-    epsDifference?:   number;
-    surprisePercent?: number;
+    quarter?:         Date | null;
+    epsActual?:       number | null;
+    epsEstimate?:     number | null;
+    epsDifference?:   number | null;
+    surprisePercent?: number | null;
 }
 
 export interface TickerEPSRevisions {
-    period?:         string;
-    upLast7Days?:    number;
-    upLast30Days?:   number;
-    downLast30Days?: number;
-    downLast7Days?:  number;
+    period?:         string | null;
+    upLast7Days?:    number | null;
+    upLast30Days?:   number | null;
+    downLast30Days?: number | null;
+    downLast7Days?:  number | null;
 }
 
 export interface TickerEPSTrend {
-    period?:       string;
-    current?:      number;
-    the7DaysAgo?:  number;
-    the30DaysAgo?: number;
-    the60DaysAgo?: number;
-    the90DaysAgo?: number;
+    period?:       string | null;
+    current?:      number | null;
+    the7DaysAgo?:  number | null;
+    the30DaysAgo?: number | null;
+    the60DaysAgo?: number | null;
+    the90DaysAgo?: number | null;
 }
 
 export interface TickerFastInfo {
-    currency?:                   string;
-    dayHigh?:                    number;
-    dayLow?:                     number;
-    exchange?:                   string;
-    fiftyDayAverage?:            number;
-    lastPrice?:                  number;
-    lastVolume?:                 number;
-    marketCap?:                  number;
-    open?:                       number;
-    previousClose?:              number;
-    quoteType?:                  string;
-    regularMarketPreviousClose?: number;
-    shares?:                     number;
-    tenDayAverageVolume?:        number;
-    threeMonthAverageVolume?:    number;
-    timezone?:                   string;
-    twoHundredDayAverage?:       number;
-    yearChange?:                 number;
-    yearHigh?:                   number;
-    yearLow?:                    number;
+    currency?:                   string | null;
+    dayHigh?:                    number | null;
+    dayLow?:                     number | null;
+    exchange?:                   string | null;
+    fiftyDayAverage?:            number | null;
+    lastPrice?:                  number | null;
+    lastVolume?:                 number | null;
+    marketCap?:                  number | null;
+    open?:                       number | null;
+    previousClose?:              number | null;
+    quoteType?:                  string | null;
+    regularMarketPreviousClose?: number | null;
+    shares?:                     number | null;
+    tenDayAverageVolume?:        number | null;
+    threeMonthAverageVolume?:    number | null;
+    timezone?:                   string | null;
+    twoHundredDayAverage?:       number | null;
+    yearChange?:                 number | null;
+    yearHigh?:                   number | null;
+    yearLow?:                    number | null;
 }
 
 export interface TickerFinancials { // Fix this Type
-    index?:             string;
+    index?:             string | null;
     the20240930000000?: number | null;
-    the20230930000000?: number;
-    the20220930000000?: number;
-    the20210930000000?: number;
+    the20230930000000?: number | null;
+    the20220930000000?: number | null;
+    the20210930000000?: number | null;
     the20200930000000?: number | null;
 }
 
 export interface TickerGrowthEstimates {
-    period?:     string;
+    period?:     string | null;
     stockTrend?: number | null;
-    indexTrend?: number;
+    indexTrend?: number | null;
 }
 
 export interface TickerHistoryMetadata {
-    currency?:             string;
-    symbol?:               string;
-    exchangeName?:         string;
-    fullExchangeName?:     string;
-    instrumentType?:       string;
-    firstTradeDate?:       number;
-    regularMarketTime?:    number;
-    hasPrePostMarketData?: boolean;
-    gmtoffset?:            number;
-    timezone?:             string;
-    exchangeTimezoneName?: string;
-    regularMarketPrice?:   number;
-    fiftyTwoWeekHigh?:     number;
-    fiftyTwoWeekLow?:      number;
-    regularMarketDayHigh?: number;
-    regularMarketDayLow?:  number;
-    regularMarketVolume?:  number;
-    longName?:             string;
-    shortName?:            string;
-    chartPreviousClose?:   number;
-    previousClose?:        number;
-    scale?:                number;
-    priceHint?:            number;
-    currentTradingPeriod?: CurrentTradingPeriod;
-    tradingPeriods?:       string;
-    dataGranularity?:      string;
-    range?:                string;
-    validRanges?:          string[];
+    currency?:             string | null;
+    symbol?:               string | null;
+    exchangeName?:         string | null;
+    fullExchangeName?:     string | null;
+    instrumentType?:       string | null;
+    firstTradeDate?:       number | null;
+    regularMarketTime?:    number | null;
+    hasPrePostMarketData?: boolean | null;
+    gmtoffset?:            number | null;
+    timezone?:             string | null;
+    exchangeTimezoneName?: string | null;
+    regularMarketPrice?:   number | null;
+    fiftyTwoWeekHigh?:     number | null;
+    fiftyTwoWeekLow?:      number | null;
+    regularMarketDayHigh?: number | null;
+    regularMarketDayLow?:  number | null;
+    regularMarketVolume?:  number | null;
+    longName?:             string | null;
+    shortName?:            string | null;
+    chartPreviousClose?:   number | null;
+    previousClose?:        number | null;
+    scale?:                number | null;
+    priceHint?:            number | null;
+    currentTradingPeriod?: CurrentTradingPeriod | null;
+    tradingPeriods?:       string | null;
+    dataGranularity?:      string | null;
+    range?:                string | null;
+    validRanges?:          string[] | null;
 }
 
 interface CurrentTradingPeriod {
-    pre?:     Post;
-    regular?: Post;
-    post?:    Post;
+    pre?:     Post | null;
+    regular?: Post | null;
+    post?:    Post | null;
 }
 
 interface Post {
-    timezone?:  string;
-    start?:     number;
-    end?:       number;
-    gmtoffset?: number;
+    timezone?:  string | null;
+    start?:     number | null;
+    end?:       number | null;
+    gmtoffset?: number | null;
 }
 
 export interface TickerIncomeStatement { // Fix this type
-    index?:             string;
+    index?:             string | null;
     the20240930000000?: number | null;
-    the20230930000000?: number;
-    the20220930000000?: number;
-    the20210930000000?: number;
+    the20230930000000?: number | null;
+    the20220930000000?: number | null;
+    the20210930000000?: number | null;
     the20200930000000?: number | null;
 }
 
 export interface TickerInfo {
-    address1?:                          string;
-    city?:                              string;
-    state?:                             string;
-    zip?:                               string;
-    country?:                           string;
-    phone?:                             string;
-    website?:                           string;
-    industry?:                          string;
-    industryKey?:                       string;
-    industryDisp?:                      string;
-    sector?:                            string;
-    sectorKey?:                         string;
-    sectorDisp?:                        string;
-    longBusinessSummary?:               string;
-    fullTimeEmployees?:                 number;
-    companyOfficers?:                   CompanyOfficer[];
-    auditRisk?:                         number;
-    boardRisk?:                         number;
-    compensationRisk?:                  number;
-    shareHolderRightsRisk?:             number;
-    overallRisk?:                       number;
-    governanceEpochDate?:               number;
-    compensationAsOfEpochDate?:         number;
-    irWebsite?:                         string;
-    executiveTeam?:                     any[];
-    maxAge?:                            number;
-    priceHint?:                         number;
-    previousClose?:                     number;
-    open?:                              number;
-    dayLow?:                            number;
-    dayHigh?:                           number;
-    regularMarketPreviousClose?:        number;
-    regularMarketOpen?:                 number;
-    regularMarketDayLow?:               number;
-    regularMarketDayHigh?:              number;
-    dividendRate?:                      number;
-    dividendYield?:                     number;
-    exDividendDate?:                    number;
-    payoutRatio?:                       number;
-    fiveYearAvgDividendYield?:          number;
-    beta?:                              number;
-    trailingPE?:                        number;
-    forwardPE?:                         number;
-    volume?:                            number;
-    regularMarketVolume?:               number;
-    averageVolume?:                     number;
-    averageVolume10Days?:               number;
-    averageDailyVolume10Day?:           number;
-    bid?:                               number;
-    ask?:                               number;
-    bidSize?:                           number;
-    askSize?:                           number;
-    marketCap?:                         number;
-    fiftyTwoWeekLow?:                   number;
-    fiftyTwoWeekHigh?:                  number;
-    priceToSalesTrailing12Months?:      number;
-    fiftyDayAverage?:                   number;
-    twoHundredDayAverage?:              number;
-    trailingAnnualDividendRate?:        number;
-    trailingAnnualDividendYield?:       number;
-    currency?:                          string;
-    tradeable?:                         boolean;
-    enterpriseValue?:                   number;
-    profitMargins?:                     number;
-    floatShares?:                       number;
-    sharesOutstanding?:                 number;
-    sharesShort?:                       number;
-    sharesShortPriorMonth?:             number;
-    sharesShortPreviousMonthDate?:      number;
-    dateShortInterest?:                 number;
-    sharesPercentSharesOut?:            number;
-    heldPercentInsiders?:               number;
-    heldPercentInstitutions?:           number;
-    shortRatio?:                        number;
-    shortPercentOfFloat?:               number;
-    impliedSharesOutstanding?:          number;
-    bookValue?:                         number;
-    priceToBook?:                       number;
-    lastFiscalYearEnd?:                 number;
-    nextFiscalYearEnd?:                 number;
-    mostRecentQuarter?:                 number;
-    earningsQuarterlyGrowth?:           number;
-    netIncomeToCommon?:                 number;
-    trailingEps?:                       number;
-    forwardEps?:                        number;
-    lastSplitFactor?:                   string;
-    lastSplitDate?:                     number;
-    enterpriseToRevenue?:               number;
-    enterpriseToEbitda?:                number;
-    the52WeekChange?:                   number;
-    sandP52WeekChange?:                 number;
-    lastDividendValue?:                 number;
-    lastDividendDate?:                  number;
-    quoteType?:                         string;
-    currentPrice?:                      number;
-    targetHighPrice?:                   number;
-    targetLowPrice?:                    number;
-    targetMeanPrice?:                   number;
-    targetMedianPrice?:                 number;
-    recommendationMean?:                number;
-    recommendationKey?:                 string;
-    numberOfAnalystOpinions?:           number;
-    totalCash?:                         number;
-    totalCashPerShare?:                 number;
-    ebitda?:                            number;
-    totalDebt?:                         number;
-    quickRatio?:                        number;
-    currentRatio?:                      number;
-    totalRevenue?:                      number;
-    debtToEquity?:                      number;
-    revenuePerShare?:                   number;
-    returnOnAssets?:                    number;
-    returnOnEquity?:                    number;
-    grossProfits?:                      number;
-    freeCashflow?:                      number;
-    operatingCashflow?:                 number;
-    earningsGrowth?:                    number;
-    revenueGrowth?:                     number;
-    grossMargins?:                      number;
-    ebitdaMargins?:                     number;
-    operatingMargins?:                  number;
-    financialCurrency?:                 string;
-    symbol?:                            string;
-    language?:                          string;
-    region?:                            string;
-    typeDisp?:                          string;
-    quoteSourceName?:                   string;
-    triggerable?:                       boolean;
-    customPriceAlertConfidence?:        string;
-    cryptoTradeable?:                   boolean;
-    corporateActions?:                  any[];
-    exchange?:                          string;
-    marketState?:                       string;
-    regularMarketChange?:               number;
-    regularMarketDayRange?:             string;
-    fullExchangeName?:                  string;
-    averageDailyVolume3Month?:          number;
-    fiftyTwoWeekLowChange?:             number;
-    fiftyTwoWeekLowChangePercent?:      number;
-    fiftyTwoWeekRange?:                 string;
-    fiftyTwoWeekHighChange?:            number;
-    fiftyTwoWeekHighChangePercent?:     number;
-    fiftyTwoWeekChangePercent?:         number;
-    dividendDate?:                      number;
-    earningsTimestamp?:                 number;
-    earningsTimestampStart?:            number;
-    earningsTimestampEnd?:              number;
-    earningsCallTimestampStart?:        number;
-    earningsCallTimestampEnd?:          number;
-    isEarningsDateEstimate?:            boolean;
-    epsTrailingTwelveMonths?:           number;
-    epsForward?:                        number;
-    epsCurrentYear?:                    number;
-    priceEpsCurrentYear?:               number;
-    fiftyDayAverageChange?:             number;
-    fiftyDayAverageChangePercent?:      number;
-    twoHundredDayAverageChange?:        number;
-    twoHundredDayAverageChangePercent?: number;
-    sourceInterval?:                    number;
-    exchangeDataDelayedBy?:             number;
-    averageAnalystRating?:              string;
-    hasPrePostMarketData?:              boolean;
-    firstTradeDateMilliseconds?:        number;
-    messageBoardID?:                    string;
-    exchangeTimezoneName?:              string;
-    exchangeTimezoneShortName?:         string;
-    gmtOffSetMilliseconds?:             number;
-    market?:                            string;
-    esgPopulated?:                      boolean;
-    regularMarketTime?:                 number;
-    shortName?:                         string;
-    longName?:                          string;
-    regularMarketChangePercent?:        number;
-    regularMarketPrice?:                number;
-    displayName?:                       string;
-    trailingPegRatio?:                  number;
+    address1?:                          string | null;
+    city?:                              string | null;
+    state?:                             string | null;
+    zip?:                               string | null;
+    country?:                           string | null;
+    phone?:                             string | null;
+    website?:                           string | null;
+    industry?:                          string | null;
+    industryKey?:                       string | null;
+    industryDisp?:                      string | null;
+    sector?:                            string | null;
+    sectorKey?:                         string | null;
+    sectorDisp?:                        string | null;
+    longBusinessSummary?:               string | null;
+    fullTimeEmployees?:                 number | null;
+    companyOfficers?:                   CompanyOfficer[] | null;
+    auditRisk?:                         number | null;
+    boardRisk?:                         number | null;
+    compensationRisk?:                  number | null;
+    shareHolderRightsRisk?:             number | null;
+    overallRisk?:                       number | null;
+    governanceEpochDate?:               number | null;
+    compensationAsOfEpochDate?:         number | null;
+    irWebsite?:                         string | null;
+    executiveTeam?:                     any[] | null;
+    maxAge?:                            number | null;
+    priceHint?:                         number | null;
+    previousClose?:                     number | null;
+    open?:                              number | null;
+    dayLow?:                            number | null;
+    dayHigh?:                           number | null;
+    regularMarketPreviousClose?:        number | null;
+    regularMarketOpen?:                 number | null;
+    regularMarketDayLow?:               number | null;
+    regularMarketDayHigh?:              number | null;
+    dividendRate?:                      number | null;
+    dividendYield?:                     number | null;
+    exDividendDate?:                    number | null;
+    payoutRatio?:                       number | null;
+    fiveYearAvgDividendYield?:          number | null;
+    beta?:                              number | null;
+    trailingPE?:                        number | null;
+    forwardPE?:                         number | null;
+    volume?:                            number | null;
+    regularMarketVolume?:               number | null;
+    averageVolume?:                     number | null;
+    averageVolume10Days?:               number | null;
+    averageDailyVolume10Day?:           number | null;
+    bid?:                               number | null;
+    ask?:                               number | null;
+    bidSize?:                           number | null;
+    askSize?:                           number | null;
+    marketCap?:                         number | null;
+    fiftyTwoWeekLow?:                   number | null;
+    fiftyTwoWeekHigh?:                  number | null;
+    priceToSalesTrailing12Months?:      number | null;
+    fiftyDayAverage?:                   number | null;
+    twoHundredDayAverage?:              number | null;
+    trailingAnnualDividendRate?:        number | null;
+    trailingAnnualDividendYield?:       number | null;
+    currency?:                          string | null;
+    tradeable?:                         boolean | null;
+    enterpriseValue?:                   number | null;
+    profitMargins?:                     number | null;
+    floatShares?:                       number | null;
+    sharesOutstanding?:                 number | null;
+    sharesShort?:                       number | null;
+    sharesShortPriorMonth?:             number | null;
+    sharesShortPreviousMonthDate?:      number | null;
+    dateShortInterest?:                 number | null;
+    sharesPercentSharesOut?:            number | null;
+    heldPercentInsiders?:               number | null;
+    heldPercentInstitutions?:           number | null;
+    shortRatio?:                        number | null;
+    shortPercentOfFloat?:               number | null;
+    impliedSharesOutstanding?:          number | null;
+    bookValue?:                         number | null;
+    priceToBook?:                       number | null;
+    lastFiscalYearEnd?:                 number | null;
+    nextFiscalYearEnd?:                 number | null;
+    mostRecentQuarter?:                 number | null;
+    earningsQuarterlyGrowth?:           number | null;
+    netIncomeToCommon?:                 number | null;
+    trailingEps?:                       number | null;
+    forwardEps?:                        number | null;
+    lastSplitFactor?:                   string | null;
+    lastSplitDate?:                     number | null;
+    enterpriseToRevenue?:               number | null;
+    enterpriseToEbitda?:                number | null;
+    the52WeekChange?:                   number | null;
+    sandP52WeekChange?:                 number | null;
+    lastDividendValue?:                 number | null;
+    lastDividendDate?:                  number | null;
+    quoteType?:                         string | null;
+    currentPrice?:                      number | null;
+    targetHighPrice?:                   number | null;
+    targetLowPrice?:                    number | null;
+    targetMeanPrice?:                   number | null;
+    targetMedianPrice?:                 number | null;
+    recommendationMean?:                number | null;
+    recommendationKey?:                 string | null;
+    numberOfAnalystOpinions?:           number | null;
+    totalCash?:                         number | null;
+    totalCashPerShare?:                 number | null;
+    ebitda?:                            number | null;
+    totalDebt?:                         number | null;
+    quickRatio?:                        number | null;
+    currentRatio?:                      number | null;
+    totalRevenue?:                      number | null;
+    debtToEquity?:                      number | null;
+    revenuePerShare?:                   number | null;
+    returnOnAssets?:                    number | null;
+    returnOnEquity?:                    number | null;
+    grossProfits?:                      number | null;
+    freeCashflow?:                      number | null;
+    operatingCashflow?:                 number | null;
+    earningsGrowth?:                    number | null;
+    revenueGrowth?:                     number | null;
+    grossMargins?:                      number | null;
+    ebitdaMargins?:                     number | null;
+    operatingMargins?:                  number | null;
+    financialCurrency?:                 string | null;
+    symbol?:                            string | null;
+    language?:                          string | null;
+    region?:                            string | null;
+    typeDisp?:                          string | null;
+    quoteSourceName?:                   string | null;
+    triggerable?:                       boolean | null;
+    customPriceAlertConfidence?:        string | null;
+    cryptoTradeable?:                   boolean | null;
+    corporateActions?:                  any[] | null;
+    exchange?:                          string | null;
+    marketState?:                       string | null;
+    regularMarketChange?:               number | null;
+    regularMarketDayRange?:             string | null;
+    fullExchangeName?:                  string | null;
+    averageDailyVolume3Month?:          number | null;
+    fiftyTwoWeekLowChange?:             number | null;
+    fiftyTwoWeekLowChangePercent?:      number | null;
+    fiftyTwoWeekRange?:                 string | null;
+    fiftyTwoWeekHighChange?:            number | null;
+    fiftyTwoWeekHighChangePercent?:     number | null;
+    fiftyTwoWeekChangePercent?:         number | null;
+    dividendDate?:                      number | null;
+    earningsTimestamp?:                 number | null;
+    earningsTimestampStart?:            number | null;
+    earningsTimestampEnd?:              number | null;
+    earningsCallTimestampStart?:        number | null;
+    earningsCallTimestampEnd?:          number | null;
+    isEarningsDateEstimate?:            boolean | null;
+    epsTrailingTwelveMonths?:           number | null;
+    epsForward?:                        number | null;
+    epsCurrentYear?:                    number | null;
+    priceEpsCurrentYear?:               number | null;
+    fiftyDayAverageChange?:             number | null;
+    fiftyDayAverageChangePercent?:      number | null;
+    twoHundredDayAverageChange?:        number | null;
+    twoHundredDayAverageChangePercent?: number | null;
+    sourceInterval?:                    number | null;
+    exchangeDataDelayedBy?:             number | null;
+    averageAnalystRating?:              string | null;
+    hasPrePostMarketData?:              boolean | null;
+    firstTradeDateMilliseconds?:        number | null;
+    messageBoardID?:                    string | null;
+    exchangeTimezoneName?:              string | null;
+    exchangeTimezoneShortName?:         string | null;
+    gmtOffSetMilliseconds?:             number | null;
+    market?:                            string | null;
+    esgPopulated?:                      boolean | null;
+    regularMarketTime?:                 number | null;
+    shortName?:                         string | null;
+    longName?:                          string | null;
+    regularMarketChangePercent?:        number | null;
+    regularMarketPrice?:                number | null;
+    displayName?:                       string | null;
+    trailingPegRatio?:                  number | null;
 }
 
 interface CompanyOfficer {
-    maxAge?:           number;
-    name?:             string;
-    age?:              number;
-    title?:            string;
-    yearBorn?:         number;
-    fiscalYear?:       number;
-    totalPay?:         number;
-    exercisedValue?:   number;
-    unexercisedValue?: number;
+    maxAge?:           number | null;
+    name?:             string | null;
+    age?:              number | null;
+    title?:            string | null;
+    yearBorn?:         number | null;
+    fiscalYear?:       number | null;
+    totalPay?:         number | null;
+    exercisedValue?:   number | null;
+    unexercisedValue?: number | null;
 }
 
 export interface TickerInsiderPurchases {
-    index?:                  number;
-    insiderPurchasesLast6M?: string;
-    shares?:                 number;
+    index?:                  number | null;
+    insiderPurchasesLast6M?: string | null;
+    shares?:                 number | null;
     trans?:                  number | null;
 }
 
 export interface TickerInsiderRosterHolders {
-    index?:                 number;
-    name?:                  string;
-    position?:              string;
-    url?:                   string;
-    mostRecentTransaction?: string;
-    latestTransactionDate?: Date;
+    index?:                 number | null;
+    name?:                  string | null;
+    position?:              string | null;
+    url?:                   string | null;
+    mostRecentTransaction?: string | null;
+    latestTransactionDate?: Date | null;
     sharesOwnedDirectly?:   number | null;
     positionDirectDate?:    Date | null;
     sharesOwnedIndirectly?: number | null;
@@ -412,135 +412,135 @@ export interface TickerInsiderRosterHolders {
 }
 
 export interface TickerInsiderTransactions {
-    index?:       number;
-    shares?:      number;
+    index?:       number | null;
+    shares?:      number | null;
     value?:       number | null;
-    url?:         string;
-    text?:        string;
-    insider?:     string;
-    position?:    string;
-    transaction?: string;
-    startDate?:   Date;
-    ownership?:   string;
+    url?:         string | null;
+    text?:        string | null;
+    insider?:     string | null;
+    position?:    string | null;
+    transaction?: string | null;
+    startDate?:   Date | null;
+    ownership?:   string | null;
 }
 
 export interface TickerInstitutionalHolders {
-    index?:        number;
-    dateReported?: Date;
-    holder?:       string;
-    pctHeld?:      number;
-    shares?:       number;
-    value?:        number;
-    pctChange?:    number;
+    index?:        number | null;
+    dateReported?: Date | null;
+    holder?:       string | null;
+    pctHeld?:      number | null;
+    shares?:       number | null;
+    value?:        number | null;
+    pctChange?:    number | null;
 }
 
 export interface TickerMajorHolders {
-    index?: string;
-    value?: number;
+    index?: string | null;
+    value?: number | null;
 }
 
 export interface TickerMutualFundHolders {
-    index?:        number;
-    dateReported?: Date;
-    holder?:       string;
-    pctHeld?:      number;
-    shares?:       number;
-    value?:        number;
-    pctChange?:    number;
+    index?:        number | null;
+    dateReported?: Date | null;
+    holder?:       string | null;
+    pctHeld?:      number | null;
+    shares?:       number | null;
+    value?:        number | null;
+    pctChange?:    number | null;
 }
 
 export interface TickerNews {
-    id?:      string;
-    content?: TickerNewContent;
+    id?:      string | null;
+    content?: TickerNewContent | null;
 }
 
 export interface TickerNewContent {
-    id?:              string;
-    contentType?:     string;
-    title?:           string;
-    description?:     string;
-    summary?:         string;
-    pubDate?:         Date;
-    displayTime?:     string;
-    isHosted?:        boolean;
-    bypassModal?:     boolean;
-    previewURL?:      null | string;
+    id?:              string | null;
+    contentType?:     string | null;
+    title?:           string | null;
+    description?:     string | null;
+    summary?:         string | null;
+    pubDate?:         Date | null;
+    displayTime?:     string | null;
+    isHosted?:        boolean | null;
+    bypassModal?:     boolean | null;
+    previewURL?:      string | null;
     thumbnail?:       Thumbnail | null;
-    provider?:        PurpleProvider;
-    canonicalURL?:    PurpleURL;
+    provider?:        PurpleProvider | null;
+    canonicalURL?:    PurpleURL | null;
     clickThroughURL?: PurpleURL | null;
-    metadata?:        Metadata;
-    finance?:         Finance;
+    metadata?:        Metadata | null;
+    finance?:         Finance | null;
     storyline?:       Storyline | null;
 }
 
 export interface PurpleURL {
-    url?:    string;
-    site?:   string;
-    region?: string;
-    lang?:   string;
+    url?:    string | null;
+    site?:   string | null;
+    region?: string | null;
+    lang?:   string | null;
 }
 
 export interface Finance {
-    premiumFinance?: PremiumFinance;
+    premiumFinance?: PremiumFinance | null;
 }
 
 export interface PremiumFinance {
-    isPremiumNews?:     boolean;
-    isPremiumFreeNews?: boolean;
+    isPremiumNews?:     boolean | null;
+    isPremiumFreeNews?: boolean | null;
 }
 
 export interface Metadata {
-    editorsPick?: boolean;
+    editorsPick?: boolean | null;
 }
 
 export interface PurpleProvider {
-    displayName?: string;
-    url?:         string;
+    displayName?: string | null;
+    url?:         string | null;
 }
 
 export interface Storyline {
-    storylineItems?: StorylineItem[];
+    storylineItems?: StorylineItem[] | null;
 }
 
 export interface StorylineItem {
-    content?: StorylineItemContent;
+    content?: StorylineItemContent | null;
 }
 
 export interface StorylineItemContent {
-    id?:                 string;
-    contentType?:        string;
-    isHosted?:           boolean;
-    title?:              string;
-    thumbnail?:          Thumbnail;
-    provider?:           FluffyProvider;
+    id?:                 string | null;
+    contentType?:        string | null;
+    isHosted?:           boolean | null;
+    title?:              string | null;
+    thumbnail?:          Thumbnail | null;
+    provider?:           FluffyProvider | null;
     previewURL?:         null;
-    providerContentURL?: string;
-    canonicalURL?:       FluffyURL;
-    clickThroughURL?:    FluffyURL;
+    providerContentURL?: string | null;
+    canonicalURL?:       FluffyURL | null;
+    clickThroughURL?:    FluffyURL | null;
 }
 
 export interface FluffyURL {
-    url?: string;
+    url?: string | null;
 }
 
 export interface FluffyProvider {
-    displayName?: string;
-    sourceID?:    string;
+    displayName?: string | null;
+    sourceID?:    string | null;
 }
 
 export interface Thumbnail {
-    originalURL?:    string;
-    originalWidth?:  number;
-    originalHeight?: number;
-    caption?:        string;
+    originalURL?:    string | null;
+    originalWidth?:  number | null;
+    originalHeight?: number | null;
+    caption?:        string | null;
     resolutions?:    Resolution[] | null;
 }
 
 export interface Resolution {
-    url?:    string;
-    width?:  number;
-    height?: number;
-    tag?:    string;
+    url?:    string | null;
+    width?:  number | null;
+    height?: number | null;
+    tag?:    string | null;
 }
 

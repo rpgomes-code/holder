@@ -1,4 +1,5 @@
 import axios from 'axios';
+import {TickerFastInfo, TickerImage} from "@/types/api/ticker";
 
 // Create an axios instance that points to yfinance wrapper API
 const apiClient = axios.create({
@@ -22,7 +23,7 @@ apiClient.interceptors.response.use(
 export const stockService = {
 
     // Ticker Basic information
-    async getTickerBasicInfo(ticker: string) {
+    async getTickerBasicInfo(ticker: string): Promise<TickerFastInfo | null> {
         const response = await apiClient.get(`/v1/ticker/${ticker}/fast-info`);
         return response.data;
     },
@@ -34,7 +35,7 @@ export const stockService = {
     },
 
     // Ticker Image
-    async getTickerImage(ticker: string) {
+    async getTickerImage(ticker: string): Promise<TickerImage | null> {
         const response = await apiClient.get(`/v1/ticker/${ticker}/image`);
         return response.data;
     },
