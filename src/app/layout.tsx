@@ -19,20 +19,21 @@ export async function RootLayout({
   children: React.ReactNode;
 }>) {
   const cookieStore = await cookies();
-  const defaultOpen = cookieStore.get("sidebar:state")?.value === "true";
+  const defaultSidebar = cookieStore.get("sidebar:state")?.value === "true";
 
   return (
-    <html lang="en">
-      <body className={`${fonts.jetbrains_mono.className} antialiased`}>
+    <html lang="en" suppressHydrationWarning>
+      <body className={`${fonts.inter.className} antialiased`}>
         <ThemeProvider
-          attribute="class"
-          defaultTheme="dark"
-          disableTransitionOnChange
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
         >
-          <SidebarProvider defaultOpen={defaultOpen}>
+          <SidebarProvider defaultOpen={defaultSidebar}>
             <AppSidebar />
             <main className="h-screen w-full">{children}</main>
-            <Toaster />
+            <Toaster richColors />
           </SidebarProvider>
         </ThemeProvider>
       </body>

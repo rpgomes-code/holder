@@ -70,7 +70,7 @@ model Portfolio {
   createdAt    DateTime      @default(now())
   updatedAt    DateTime      @updatedAt
   publicId     String        @unique @default(uuid())
-  slug         String
+  slug         String        @unique
   id           Int           @id @default(autoincrement())
   userId       Int
   user         User          @relation(fields: [userId], references: [id], onDelete: Cascade)
